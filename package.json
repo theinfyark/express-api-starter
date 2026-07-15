@@ -1,0 +1,55 @@
+{
+  "name": "express-api-starter",
+  "version": "1.0.0",
+  "description": "Production-ready Express API starter with logger, errors, JWT, rate limit, CORS, Helmet, request IDs, and health checks.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test tests/server.test.js",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "express",
+    "api",
+    "starter",
+    "boilerplate",
+    "jwt",
+    "middleware",
+    "helmet",
+    "cors",
+    "rate-limit",
+    "logger"
+  ],
+  "author": "anilachary",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theinfyark/express-api-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theinfyark/express-api-starter/issues"
+  },
+  "homepage": "https://github.com/theinfyark/express-api-starter#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1"
+  }
+}
