@@ -1,6 +1,6 @@
 {
   "name": "express-api-starter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Production-ready Express API starter with logger, errors, JWT, rate limit, CORS, Helmet, request IDs, and health checks.",
   "type": "module",
   "main": "./src/index.js",
@@ -33,7 +33,15 @@
     "helmet",
     "cors",
     "rate-limit",
-    "logger"
+    "logger",
+    "express-boilerplate",
+    "rest-api",
+    "nodejs",
+    "template",
+    "scaffold",
+    "backend",
+    "server",
+    "production-ready"
   ],
   "author": "anilachary",
   "license": "MIT",
