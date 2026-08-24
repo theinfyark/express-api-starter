@@ -64,7 +64,15 @@ export function createServer(options = {}) {
   }
 
   if (options.cors !== false) {
-    app.use(cors(options.cors === true ? undefined : options.cors));
+    const corsOption =
+      options.cors === true
+        ? undefined
+        : (options.cors ??
+          (process.env.NODE_ENV === 'production'
+            ? { origin: false }
+            : undefined));
+    if (corsOption !== undefined) app.use(cors(corsOption));
+    else app.use(cors());
   }
 
   if (options.json !== false) {

@@ -6,6 +6,14 @@ Production-ready **Express API starter** — security, logging, validation, JWT,
 npm install express-api-starter
 ```
 
+## Features
+
+- Helmet, CORS, JSON parser, request IDs, logging, rate limit, and `GET /health`
+- JWT middleware (Bearer header, then cookie `token`, then query `access_token`)
+- In production, CORS defaults to `{ origin: false }` unless you pass `cors`
+- Validation helpers and `AppError` JSON error handler
+- Dual ESM + CommonJS entry points
+
 ## Quick start
 
 ```js
@@ -25,7 +33,7 @@ That’s enough for:
 | Feature           | Default                   |
 | ----------------- | ------------------------- |
 | **Helmet**        | security headers          |
-| **CORS**          | enabled                   |
+| **CORS**          | enabled (production: `{ origin: false }` unless `cors` is set) |
 | **Logger**        | morgan + request id       |
 | **Request Id**    | `X-Request-Id` / `req.id` |
 | **Rate Limiter**  | 100 req / 15 min          |

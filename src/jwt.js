@@ -4,7 +4,8 @@ import { AppError } from './errors.js';
 /**
  * Create a JWT auth middleware.
  *
- * Reads `Authorization: Bearer <token>` (or optional cookie / query).
+ * Token sources (first match wins): `Authorization: Bearer <token>`,
+ * cookie `token`, then query `access_token`.
  * On success sets `req.user` to the decoded payload.
  *
  * @param {{
@@ -26,7 +27,27 @@ export function createJwtMiddleware(options = {}) {
   const defaultGetToken = (req) => {
     const header = req.headers.authorization;
     if (typeof header === 'string' && header.startsWith('Bearer ')) {
-      return header.slice(7).trim();
+      const bearer = header.slice(7).trim();
+      if (bearer) return bearer;
+    }
+    if (req.cookies && typeof req.cookies.token === 'string' && req.cookies.token) {
+      return req.cookies.token;
+    }
+    const cookieHeader = req.headers.cookie;
+    if (typeof cookieHeader === 'string') {
+      const match = cookieHeader.match(/(?:^|;\s*)token=([^;]*)/);
+      if (match) {
+        try {
+          const decoded = decodeURIComponent(match[1].trim());
+          if (decoded) return decoded;
+        } catch {
+          if (match[1]) return match[1];
+        }
+      }
+    }
+    const accessToken = req.query?.access_token;
+    if (typeof accessToken === 'string' && accessToken) {
+      return accessToken;
     }
     return null;
   };

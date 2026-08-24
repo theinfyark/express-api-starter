@@ -86,6 +86,22 @@ describe('createServer', () => {
     assert.equal(res.body.user.id, 42);
   });
 
+  it('accepts JWT from cookie token and query access_token', async () => {
+    const token = signToken({ id: 7 }, { secret: 'test-secret' });
+
+    const cookieRes = await request(app)
+      .get('/secure')
+      .set('Cookie', `token=${token}`)
+      .expect(200);
+    assert.equal(cookieRes.body.user.id, 7);
+
+    const queryRes = await request(app)
+      .get('/secure')
+      .query({ access_token: token })
+      .expect(200);
+    assert.equal(queryRes.body.user.id, 7);
+  });
+
   it('handles AppError as JSON', async () => {
     const res = await request(app).get('/fail').expect(400);
     assert.equal(res.body.error.message, 'Bad things');
